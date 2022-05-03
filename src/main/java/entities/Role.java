@@ -2,16 +2,10 @@ package entities;
 
 import java.io.Serializable;
 import java.util.List;
-import javax.persistence.Basic;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.ManyToMany;
-import javax.persistence.NamedQueries;
-import javax.persistence.NamedQuery;
-import javax.persistence.Table;
+import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
+import entities.User2;
 
 /**
  *
@@ -27,9 +21,12 @@ public class Role implements Serializable {
     @NotNull
     @Column(name = "role_name", length = 20)
     private String roleName;
-    
-    @ManyToMany(mappedBy = "roleList")
+
+    @ManyToMany(mappedBy = "roleList") // todo delete later
     private List<User> userList;
+
+    @OneToMany(mappedBy="role")
+    private List<User2> users;
 
     public Role() {
     }
@@ -46,11 +43,20 @@ public class Role implements Serializable {
         this.roleName = roleName;
     }
 
+    public List<User2> getUsers() {
+        return users;
+    }
+
+    public void setUsers(List<User2> users) {
+        this.users = users;
+    }
+
     public List<User> getUserList() {
         return userList;
     }
 
     public void setUserList(List<User> userList) {
         this.userList = userList;
-    }   
+    }
+
 }

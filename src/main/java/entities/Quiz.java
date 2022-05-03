@@ -1,13 +1,30 @@
 package entities;
 
+import javax.persistence.*;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Quiz {
+@Entity
+@Table(name = "quizzes")
+public class Quiz{
 
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    @Basic(optional = false)
+    @NotNull
+    @Column(name = "quiz_id")
+    private int quizID;
+
+    @NotNull
+    @Basic(optional = false)
+    @Size
+    @Column(name = "title")
     private String name;
-    private List<Question> questions = new ArrayList<>();
 
+    @OneToMany(mappedBy="quiz")
+    private List<Question> questions = new ArrayList<>();
 
     public Quiz() {
     }
@@ -15,6 +32,14 @@ public class Quiz {
     public Quiz(String name, List<Question> questions) {
         this.name = name;
         this.questions = questions;
+    }
+
+    public int getQuizID() {
+        return quizID;
+    }
+
+    public void setQuizID(int quizID) {
+        this.quizID = quizID;
     }
 
     public String getName() {
