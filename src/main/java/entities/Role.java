@@ -22,9 +22,6 @@ public class Role implements Serializable {
     @Column(name = "role_name", length = 20)
     private String roleName;
 
-    @ManyToMany(mappedBy = "roleList") // todo delete later
-    private List<User> userList;
-
     @OneToMany(mappedBy="role")
     private List<User2> users;
 
@@ -49,14 +46,6 @@ public class Role implements Serializable {
 
     public void setUsers(List<User2> users) {
         this.users = users;
-    }
-
-    public List<User> getUserList() {
-        return userList;
-    }
-
-    public void setUserList(List<User> userList) {
-        this.userList = userList;
     }
 
 }

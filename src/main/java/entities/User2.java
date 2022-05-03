@@ -138,6 +138,10 @@ public class User2 {
         return (BCrypt.checkpw(plainPassword, password));
     }
 
+    public String getRoleAsString(){
+        return this.getRole().getRoleName();
+    }
+
     public static void main(String[] args) {
         EntityManagerFactory emf = EMF_Creator.createEntityManagerFactory();
         EntityManager em = emf.createEntityManager();
@@ -150,17 +154,7 @@ public class User2 {
             em.persist(user);
         em.getTransaction().commit();
 
-        // Er kommet lidt nærmere problemet, tror jeg.
-
-        // Den brokker sig over at vi ikke giver column user_name en værdi
-        // Men vores user har ikke en column kaldet user_name...
-        // Så tror at fejlen ligger et andet sted, ja den tager fejl af vores user.. Den tager user og ikke user2
-        // Inde i User (ikke vores som er User2), der har den en user_name
-        // Men ja, undrer mig lidt over det...
-        // Har lyst til at slette User xD
-        // Men der kommer sikkert til at opstå nogle fejl, fordi den har test...
-        // Kunne du commit og push og merge til main?
-        // Så kan vi efterfølgende prøve at slette User og hvad der ellers medfølger
+        // Damn du er hurtig. Er der nogle fej
         // kan jeg godt, kan ikke lige se hvorfor den gør det :/
 
     }
