@@ -1,5 +1,7 @@
 package entities;
 
+import dtos.UserDTO;
+
 import java.io.Serializable;
 import java.util.List;
 import javax.persistence.*;
@@ -38,7 +40,7 @@ public class Role implements Serializable {
         this.roleName = roleName;
     }
 
-    public List<User> getUsers() {
+    public List<UserDTO> getUsers() {
         return users;
     }
 
