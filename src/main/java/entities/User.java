@@ -4,7 +4,6 @@ import org.mindrot.jbcrypt.BCrypt;
 import utils.EMF_Creator;
 
 import javax.persistence.*;
-import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import java.util.ArrayList;
 import java.util.List;
@@ -12,7 +11,7 @@ import java.util.List;
 
 @Entity
 @Table(name = "users")
-public class User2 {
+public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Basic(optional = false)
@@ -60,10 +59,10 @@ public class User2 {
     )
     private List<Music> bookmarkedSongs = new ArrayList<>();
 
-    public User2() {
+    public User() {
     }
 
-    public User2(String username, String email, String password, Role role) {
+    public User(String username, String email, String password, Role role) {
         this.username = username;
         this.email = email;
         this.password = BCrypt.hashpw(password, BCrypt.gensalt());
@@ -147,15 +146,12 @@ public class User2 {
         EntityManager em = emf.createEntityManager();
 
         Role role = new Role("user");
-        User2 user = new User2("test_user1", "test@gmail.com", "secret", role);
+        User user = new User("test_user1", "test@gmail.com", "secret", role);
 
         em.getTransaction().begin();
             em.persist(role);
             em.persist(user);
         em.getTransaction().commit();
-
-        // Damn du er hurtig. Er der nogle fej
-        // kan jeg godt, kan ikke lige se hvorfor den gør det :/
 
     }
 

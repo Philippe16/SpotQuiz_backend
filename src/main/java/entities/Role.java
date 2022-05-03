@@ -4,8 +4,6 @@ import java.io.Serializable;
 import java.util.List;
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Size;
-import entities.User2;
 
 /**
  *
@@ -23,7 +21,7 @@ public class Role implements Serializable {
     private String roleName;
 
     @OneToMany(mappedBy="role")
-    private List<User2> users;
+    private List<User> users;
 
     public Role() {
     }
@@ -40,11 +38,11 @@ public class Role implements Serializable {
         this.roleName = roleName;
     }
 
-    public List<User2> getUsers() {
+    public List<User> getUsers() {
         return users;
     }
 
-    public void setUsers(List<User2> users) {
+    public void setUsers(List<User> users) {
         this.users = users;
     }
 
