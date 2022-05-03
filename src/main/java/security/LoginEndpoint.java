@@ -12,10 +12,9 @@ import com.nimbusds.jwt.JWTClaimsSet;
 import com.nimbusds.jwt.SignedJWT;
 import facades.UserFacade;
 import java.util.Date;
-import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import entities.User2;
+import entities.User;
 
 import errorhandling.API_Exception;
 import javax.ws.rs.Consumes;
@@ -51,7 +50,7 @@ public class LoginEndpoint {
         }
             // import og vi skal have en metode kaldet getRoleAsStrings
         try {
-            User2 user = USER_FACADE.getVeryfiedUser(username, password);
+            User user = USER_FACADE.getVeryfiedUser(username, password);
             String token = createToken(username, user.getRoleAsString()); // Hvad er dets fejl? Den vil have List, vi giver den string
             JsonObject responseJson = new JsonObject();
             responseJson.addProperty("username", username);
@@ -75,7 +74,7 @@ public class LoginEndpoint {
         JWTClaimsSet claimsSet = new JWTClaimsSet.Builder()
                 .subject(userName)
                 .claim("username", userName)
-                .claim("roles", role)
+                .claim("role", role)
                 .claim("issuer", issuer)
                 .issueTime(date)
                 .expirationTime(new Date(date.getTime() + TOKEN_EXPIRE_TIME))
