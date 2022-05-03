@@ -1,92 +1,158 @@
 package entities;
 
-import java.io.Serializable;
+import org.mindrot.jbcrypt.BCrypt;
+import utils.EMF_Creator;
+
+import javax.persistence.*;
+import javax.validation.constraints.Size;
 import java.util.ArrayList;
 import java.util.List;
-import javax.persistence.Basic;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.JoinTable;
-import javax.persistence.ManyToMany;
-import javax.persistence.Table;
-import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Size;
-import org.mindrot.jbcrypt.BCrypt;
+
 
 @Entity
 @Table(name = "users")
-public class User implements Serializable {
+public class User {
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    @Basic(optional = false)
+    @Column(name = "user_id", nullable = false)
+    private int userID;
 
-  private static final long serialVersionUID = 1L;
-  @Id
-  @Basic(optional = false)
-  @NotNull
-  @Column(name = "user_name", length = 25)
-  private String userName;
-  @Basic(optional = false)
-  @NotNull
-  @Size(min = 1, max = 255)
-  @Column(name = "user_pass")
-  private String userPass;
-  @JoinTable(name = "user_roles", joinColumns = {
-    @JoinColumn(name = "user_name", referencedColumnName = "user_name")}, inverseJoinColumns = {
-    @JoinColumn(name = "role_name", referencedColumnName = "role_name")})
-  @ManyToMany
-  private List<Role> roleList = new ArrayList<>();
+    @Basic(optional = false)
+    @Size(max = 250)
+    @Column(name = "username", nullable = false)
+    private String username;
 
-  public List<String> getRolesAsStrings() {
-    if (roleList.isEmpty()) {
-      return null;
+    @Basic(optional = false)
+    @Size
+    @Column(name = "email", nullable = false)
+    private String email;
+
+    @Basic(optional = false)
+    @Size
+    @Column(name = "password", nullable = false)
+    private String password;
+
+
+    @ManyToOne
+    @JoinColumn(name = "fk_role", nullable = false)
+    private Role role;
+
+    @ManyToMany
+    @JoinTable(name = "created_quizzes", joinColumns = {
+            @JoinColumn(name = "fk_user_id", referencedColumnName = "user_id")}, inverseJoinColumns = {
+            @JoinColumn(name = "fk_quiz_id", referencedColumnName = "role_name")}
+    )
+    private List<Quiz> createdQuizzes = new ArrayList<>();
+
+    @ManyToMany
+    @JoinTable(name = "played_quizzes", joinColumns = {
+            @JoinColumn(name = "fk_user_id", referencedColumnName = "user_id")}, inverseJoinColumns = {
+            @JoinColumn(name = "fk_quiz_id", referencedColumnName = "role_name")}
+    )
+    private List<Quiz> playedQuizzes = new ArrayList<>();
+
+    @ManyToMany
+    @JoinTable(name = "bookmarked_songs", joinColumns = {
+            @JoinColumn(name = "fk_user_id", referencedColumnName = "user_id")}, inverseJoinColumns = {
+            @JoinColumn(name = "fk_music_id", referencedColumnName = "music_id")}
+    )
+    private List<Music> bookmarkedSongs = new ArrayList<>();
+
+    public User() {
     }
-    List<String> rolesAsStrings = new ArrayList<>();
-    roleList.forEach((role) -> {
-        rolesAsStrings.add(role.getRoleName());
-      });
-    return rolesAsStrings;
-  }
 
-  public User() {}
-
-  //TODO Change when password is hashed
-   public boolean verifyPassword(String pw){
-        return(pw.equals(userPass));
+    public User(String username, String email, String password, Role role) {
+        this.username = username;
+        this.email = email;
+        this.password = BCrypt.hashpw(password, BCrypt.gensalt());
+        this.role = role;
     }
 
-  public User(String userName, String userPass) {
-    this.userName = userName;
+    public int getUserID() {
+        return userID;
+    }
 
-    this.userPass = userPass;
-  }
+    public void setUserID(int userID) {
+        this.userID = userID;
+    }
 
+    public String getUsername() {
+        return username;
+    }
 
-  public String getUserName() {
-    return userName;
-  }
+    public void setUsername(String username) {
+        this.username = username;
+    }
 
-  public void setUserName(String userName) {
-    this.userName = userName;
-  }
+    public String getEmail() {
+        return email;
+    }
 
-  public String getUserPass() {
-    return this.userPass;
-  }
+    public void setEmail(String email) {
+        this.email = email;
+    }
 
-  public void setUserPass(String userPass) {
-    this.userPass = userPass;
-  }
+    public String getPassword() {
+        return password;
+    }
 
-  public List<Role> getRoleList() {
-    return roleList;
-  }
+    public void setPassword(String password) {
+        this.password = password;
+    }
 
-  public void setRoleList(List<Role> roleList) {
-    this.roleList = roleList;
-  }
+    public Role getRole() {
+        return role;
+    }
 
-  public void addRole(Role userRole) {
-    roleList.add(userRole);
-  }
+    public void setRole(Role role) {
+        this.role = role;
+    }
+
+    public List<Quiz> getCreatedQuizzes() {
+        return createdQuizzes;
+    }
+
+    public void setCreatedQuizzes(List<Quiz> quizzes) {
+        this.createdQuizzes = quizzes;
+    }
+
+    public List<Music> getBookmarkedSongs() {
+        return bookmarkedSongs;
+    }
+
+    public void setBookmarkedSongs(List<Music> bookmarkedSongs) {
+        this.bookmarkedSongs = bookmarkedSongs;
+    }
+
+    public List<Quiz> getPlayedQuizzes() {
+        return playedQuizzes;
+    }
+
+    public void setPlayedQuizzes(List<Quiz> playedQuizzes) {
+        this.playedQuizzes = playedQuizzes;
+    }
+
+    public boolean verifyPassword(String plainPassword) {
+        return (BCrypt.checkpw(plainPassword, password));
+    }
+
+    public String getRoleAsString(){
+        return this.getRole().getRoleName();
+    }
+
+    public static void main(String[] args) {
+        EntityManagerFactory emf = EMF_Creator.createEntityManagerFactory();
+        EntityManager em = emf.createEntityManager();
+
+        Role role = new Role("user");
+        User user = new User("test_user1", "test@gmail.com", "secret", role);
+
+        em.getTransaction().begin();
+            em.persist(role);
+            em.persist(user);
+        em.getTransaction().commit();
+
+    }
 
 }

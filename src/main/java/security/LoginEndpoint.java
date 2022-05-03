@@ -12,10 +12,10 @@ import com.nimbusds.jwt.JWTClaimsSet;
 import com.nimbusds.jwt.SignedJWT;
 import facades.UserFacade;
 import java.util.Date;
-import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import entities.User;
+
 import errorhandling.API_Exception;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.POST;
@@ -48,10 +48,10 @@ public class LoginEndpoint {
         } catch (Exception e) {
            throw new API_Exception("Malformed JSON Suplied",400,e);
         }
-
+            // import og vi skal have en metode kaldet getRoleAsStrings
         try {
             User user = USER_FACADE.getVeryfiedUser(username, password);
-            String token = createToken(username, user.getRolesAsStrings());
+            String token = createToken(username, user.getRoleAsString()); // Hvad er dets fejl? Den vil have List, vi giver den string
             JsonObject responseJson = new JsonObject();
             responseJson.addProperty("username", username);
             responseJson.addProperty("token", token);
@@ -66,14 +66,7 @@ public class LoginEndpoint {
         throw new AuthenticationException("Invalid username or password! Please try again");
     }
 
-    private String createToken(String userName, List<String> roles) throws JOSEException {
-
-        StringBuilder res = new StringBuilder();
-        for (String string : roles) {
-            res.append(string);
-            res.append(",");
-        }
-        String rolesAsString = res.length() > 0 ? res.substring(0, res.length() - 1) : "";
+    private String createToken(String userName, String role) throws JOSEException {
         String issuer = "semesterstartcode-dat3";
 
         JWSSigner signer = new MACSigner(SharedSecret.getSharedKey());
@@ -81,7 +74,7 @@ public class LoginEndpoint {
         JWTClaimsSet claimsSet = new JWTClaimsSet.Builder()
                 .subject(userName)
                 .claim("username", userName)
-                .claim("roles", rolesAsString)
+                .claim("role", role)
                 .claim("issuer", issuer)
                 .issueTime(date)
                 .expirationTime(new Date(date.getTime() + TOKEN_EXPIRE_TIME))
