@@ -1,7 +1,6 @@
 package dtos;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
-import entities.Music;
 import entities.Question;
 
 public class QuestionDTO {
@@ -12,7 +11,7 @@ public class QuestionDTO {
     private String choice3;
     private String choice4;
     private String answer;
-    private Music music; // Vi skal også have inde i RoleDTO og UserDTO
+    private MusicDTO music;
     @JsonBackReference
     private QuizDTO quiz;
 
@@ -27,7 +26,7 @@ public class QuestionDTO {
         this.choice3 = question.getChoice3();
         this.choice4 = question.getChoice4();
         this.answer = question.getAnswer();
-        this.music = question.getMusic();
+        this.music = new MusicDTO(question.getMusic());
         this.quiz = new QuizDTO(question.getQuiz());
     }
 
@@ -88,11 +87,11 @@ public class QuestionDTO {
         this.answer = answer;
     }
 
-    public Music getMusic() {
+    public MusicDTO getMusic() {
         return music;
     }
 
-    public void setMusic(Music music) {
+    public void setMusic(MusicDTO music) {
         this.music = music;
     }
 
