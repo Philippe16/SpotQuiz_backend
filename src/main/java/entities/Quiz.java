@@ -1,7 +1,5 @@
 package entities;
 
-import com.fasterxml.jackson.annotation.JsonManagedReference;
-
 import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
@@ -26,9 +24,8 @@ public class Quiz{
     public Quiz() {
     }
 
-    public Quiz(String name, List<Question> questions) {
+    public Quiz(String name) {
         this.name = name;
-        this.questions = questions;
     }
 
     public int getQuizID() {
@@ -54,4 +51,9 @@ public class Quiz{
     public void setQuestions(List<Question> questions) {
         this.questions = questions;
     }
+
+    public void addQuestion(Question question){
+        questions.add(question);
+    }
+
 }

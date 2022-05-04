@@ -1,5 +1,7 @@
 package entities;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+
 import javax.persistence.*;
 
 @Entity
@@ -47,9 +49,8 @@ public class Question {
     public Question() {
     }
 
-    public Question(int questionID, String question, String choice1, String choice2, String choice3, String choice4,
+    public Question(String question, String choice1, String choice2, String choice3, String choice4,
                     String answer, Music music, Quiz quiz) {
-        this.questionID = questionID;
         this.question = question;
         this.choice1 = choice1;
         this.choice2 = choice2;
@@ -131,4 +132,7 @@ public class Question {
     public void setQuiz(Quiz quiz) {
         this.quiz = quiz;
     }
+
+
+
 }

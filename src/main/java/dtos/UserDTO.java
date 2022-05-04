@@ -1,5 +1,7 @@
 package dtos;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import entities.Music;
 import entities.Quiz;
 import entities.Role;
@@ -13,6 +15,7 @@ public class UserDTO {
     private String username;
     private String email;
     private String password;
+    @JsonBackReference
     private Role role;
     private List<QuizDTO> createdQuizzes = new ArrayList<>();
     private List<QuizDTO> playedQuizzes = new ArrayList<>();

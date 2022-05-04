@@ -1,5 +1,6 @@
 package entities;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import org.mindrot.jbcrypt.BCrypt;
 
 import javax.persistence.*;
@@ -134,6 +135,11 @@ public class User {
 
     public String getRoleAsString(){
         return this.getRole().getRoleName();
+    }
+
+
+    public void createQuiz(Quiz quiz){
+        this.createdQuizzes.add(quiz);
     }
 
 }

@@ -1,5 +1,6 @@
 package dtos;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import entities.Role;
 import entities.User;
 
@@ -8,6 +9,7 @@ import java.util.List;
 
 public class RoleDTO {
     private String roleName;
+    @JsonManagedReference
     private List<UserDTO> users = new ArrayList<>();
 
     public RoleDTO() {

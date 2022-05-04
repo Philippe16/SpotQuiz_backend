@@ -1,5 +1,6 @@
 package dtos;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import entities.Question;
 import entities.Quiz;
 
@@ -9,6 +10,7 @@ import java.util.List;
 public class QuizDTO {
     private int quizID;
     private String name;
+    @JsonManagedReference
     private List<QuestionDTO> questions = new ArrayList<>();
 
     public QuizDTO() {

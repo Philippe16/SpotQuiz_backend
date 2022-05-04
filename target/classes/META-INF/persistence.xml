@@ -4,7 +4,6 @@
     <!-- DO NOT RENAME THE PERSISTENCE UNIT -->
     <persistence-unit name="pu" transaction-type="RESOURCE_LOCAL">
         <provider>org.eclipse.persistence.jpa.PersistenceProvider</provider>
-        <!--    <class>entities.RenameMe</class>-->
         <exclude-unlisted-classes>false</exclude-unlisted-classes>
         <properties>
             <!-- DO NOT remove the line below. It's not set by the  entityUtils.EMF_Creator -->
@@ -32,7 +31,6 @@
     <persistence-unit name="puTest" transaction-type="RESOURCE_LOCAL">
         <!-- DO NOT RENAME THE PERSISTENCE UNIT -->
         <provider>org.eclipse.persistence.jpa.PersistenceProvider</provider>
-        <!--            <class>entities.RenameMe</class>-->
         <exclude-unlisted-classes>false</exclude-unlisted-classes>
         
         <properties>
