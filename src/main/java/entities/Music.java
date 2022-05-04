@@ -11,33 +11,23 @@ public class Music {
 
     @Id
     @Basic(optional = false)
-    @Size(max = 100)
-    @NotNull
-    @Column(name = "music_id")
+    @Column(name = "music_id", nullable = false, unique = true)
     private String songID;
 
-    @NotNull
     @Basic(optional = false)
-    @Size(max = 250)
-    @Column(name = "title")
+    @Column(name = "title", nullable = false)
     private String title;
 
-    @NotNull
     @Basic(optional = false)
-    @Size(max = 250)
-    @Column(name = "artist")
+    @Column(name = "artist", nullable = false)
     private String artist;
 
-    @NotNull
     @Basic(optional = false)
-    @Size(max = 250)
-    @Column(name = "cover_img_link")
+    @Column(name = "cover_img_link", nullable = false)
     private String coverImgLink;
 
-    @NotNull
     @Basic(optional = false)
-    @Size(max = 250)
-    @Column(name = "audio_snippet_link")
+    @Column(name = "audio_snippet_link", nullable = false)
     private String songSnippetLink;
 
     public Music() {
