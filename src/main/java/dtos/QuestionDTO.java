@@ -4,7 +4,6 @@ import entities.Music;
 import entities.Question;
 
 public class QuestionDTO {
-
     private int questionID;
     private String question;
     private String choice1;

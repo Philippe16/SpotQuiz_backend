@@ -11,16 +11,13 @@ import java.util.List;
 public class Quiz{
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
     @Basic(optional = false)
-    @NotNull
-    @Column(name = "quiz_id")
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    @Column(name = "quiz_id", nullable = false, unique = true)
     private int quizID;
 
-    @NotNull
     @Basic(optional = false)
-    @Size
-    @Column(name = "title")
+    @Column(name = "title", nullable = false)
     private String name;
 
     @OneToMany(mappedBy="quiz")

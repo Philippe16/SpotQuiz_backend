@@ -6,13 +6,10 @@ import entities.Quiz;
 import java.util.ArrayList;
 import java.util.List;
 
-
 public class QuizDTO {
-
     private int quizID;
     private String name;
-    private List<Question> questions = new ArrayList<>();
-
+    private List<QuestionDTO> questions = new ArrayList<>();
 
     public QuizDTO() {
     }
@@ -20,7 +17,10 @@ public class QuizDTO {
     public QuizDTO(Quiz quiz) {
         this.quizID = quiz.getQuizID();
         this.name = quiz.getName();
-        this.questions = quiz.getQuestions();
+
+        for(Question question : quiz.getQuestions()){
+            questions.add(new QuestionDTO(question));
+        }
     }
 
     public int getQuizID() {
@@ -39,11 +39,11 @@ public class QuizDTO {
         this.name = name;
     }
 
-    public List<Question> getQuestions() {
+    public List<QuestionDTO> getQuestions() {
         return questions;
     }
 
-    public void setQuestions(List<Question> questions) {
+    public void setQuestions(List<QuestionDTO> questions) {
         this.questions = questions;
     }
 }
