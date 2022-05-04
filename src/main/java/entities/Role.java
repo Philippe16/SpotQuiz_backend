@@ -1,16 +1,9 @@
 package entities;
 
-import dtos.UserDTO;
-
 import java.io.Serializable;
 import java.util.List;
 import javax.persistence.*;
-import javax.validation.constraints.NotNull;
 
-/**
- *
- * @author Plaul
- */
 @Entity
 @Table(name = "roles")
 public class Role implements Serializable {
@@ -18,8 +11,7 @@ public class Role implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id
     @Basic(optional = false)
-    @NotNull
-    @Column(name = "role_name", length = 20)
+    @Column(name = "role_name", length = 20, nullable = false)
     private String roleName;
 
     @OneToMany(mappedBy="role")
@@ -40,7 +32,7 @@ public class Role implements Serializable {
         this.roleName = roleName;
     }
 
-    public List<UserDTO> getUsers() {
+    public List<User> getUsers() {
         return users;
     }
 
