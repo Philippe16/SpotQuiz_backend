@@ -5,21 +5,18 @@ import entities.Quiz;
 import entities.Role;
 import entities.User;
 
-import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
 
 public class UserDTO {
-
     private int userID;
     private String username;
     private String email;
     private String password;
     private Role role;
-    private List<Quiz> createdQuizzes = new ArrayList<>();
-    private List<Quiz> playedQuizzes = new ArrayList<>();
-    private List<Music> bookmarkedSongs = new ArrayList<>();
-
+    private List<QuizDTO> createdQuizzes = new ArrayList<>();
+    private List<QuizDTO> playedQuizzes = new ArrayList<>();
+    private List<MusicDTO> bookmarkedSongs = new ArrayList<>();
 
     public UserDTO() {
     }
@@ -30,9 +27,18 @@ public class UserDTO {
         this.email = user.getEmail();
         this.password = user.getPassword();
         this.role = user.getRole();
-        this.createdQuizzes = user.getCreatedQuizzes();
-        this.playedQuizzes = user.getPlayedQuizzes();
-        this.bookmarkedSongs = user.getBookmarkedSongs();
+
+        for(Quiz quiz : user.getCreatedQuizzes()){
+            createdQuizzes.add(new QuizDTO(quiz));
+        }
+
+        for(Quiz quiz : user.getPlayedQuizzes()){
+            createdQuizzes.add(new QuizDTO(quiz));
+        }
+
+        for(Music music : user.getBookmarkedSongs()){
+            bookmarkedSongs.add(new MusicDTO(music));
+        }
     }
 
     public int getUserID() {
@@ -75,27 +81,27 @@ public class UserDTO {
         this.role = role;
     }
 
-    public List<Quiz> getCreatedQuizzes() {
+    public List<QuizDTO> getCreatedQuizzes() {
         return createdQuizzes;
     }
 
-    public void setCreatedQuizzes(List<Quiz> createdQuizzes) {
+    public void setCreatedQuizzes(List<QuizDTO> createdQuizzes) {
         this.createdQuizzes = createdQuizzes;
     }
 
-    public List<Quiz> getPlayedQuizzes() {
+    public List<QuizDTO> getPlayedQuizzes() {
         return playedQuizzes;
     }
 
-    public void setPlayedQuizzes(List<Quiz> playedQuizzes) {
+    public void setPlayedQuizzes(List<QuizDTO> playedQuizzes) {
         this.playedQuizzes = playedQuizzes;
     }
 
-    public List<Music> getBookmarkedSongs() {
+    public List<MusicDTO> getBookmarkedSongs() {
         return bookmarkedSongs;
     }
 
-    public void setBookmarkedSongs(List<Music> bookmarkedSongs) {
+    public void setBookmarkedSongs(List<MusicDTO> bookmarkedSongs) {
         this.bookmarkedSongs = bookmarkedSongs;
     }
 }
