@@ -1,6 +1,5 @@
 package entities;
 
-
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
@@ -10,61 +9,48 @@ import javax.validation.constraints.Size;
 public class Question {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
     @Basic(optional = false)
-    @NotNull
-    @Column(name = "question_id")
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    @Column(name = "question_id", nullable = false, unique = true)
     private int questionID;
 
     @Basic(optional = false)
-    @Size(max = 250)
-    @NotNull
-    @Column(name = "question")
+    @Column(name = "question", nullable = false)
     private String question;
 
     @Basic(optional = false)
-    @Size(max = 250)
-    @NotNull
-    @Column(name = "choice1")
+    @Column(name = "choice1", nullable = false)
     private String choice1;
 
     @Basic(optional = false)
-    @Size(max = 250)
-    @NotNull
-    @Column(name = "choice2")
+    @Column(name = "choice2", nullable = false)
     private String choice2;
 
     @Basic(optional = false)
-    @Size(max = 250)
-    @NotNull
-    @Column(name = "choice3")
+    @Column(name = "choice3", nullable = false)
     private String choice3;
 
     @Basic(optional = false)
-    @Size(max = 250)
-    @NotNull
-    @Column(name = "choice4")
+    @Column(name = "choice4", nullable = false)
     private String choice4;
 
-
     @Basic(optional = false)
-    @Size(max = 250)
-    @NotNull
-    @Column(name = "correct_answer")
+    @Column(name = "correct_answer", nullable = false)
     private String answer;
 
-    @JoinColumn(name = "fk_music_id")
+    @JoinColumn(name = "fk_music_id", nullable = false)
     @ManyToOne(fetch=FetchType.LAZY)
     private Music music;
 
     @ManyToOne
-    @JoinColumn(name="fk_quiz_id", nullable=false)
+    @JoinColumn(name="fk_quiz_id", nullable = false)
     private Quiz quiz;
 
     public Question() {
     }
 
-    public Question(int questionID, String question, String choice1, String choice2, String choice3, String choice4, String answer, Music music) {
+    public Question(int questionID, String question, String choice1, String choice2, String choice3, String choice4,
+                    String answer, Music music, Quiz quiz) {
         this.questionID = questionID;
         this.question = question;
         this.choice1 = choice1;
@@ -73,6 +59,7 @@ public class Question {
         this.choice4 = choice4;
         this.answer = answer;
         this.music = music;
+        this.quiz = quiz;
     }
 
     public int getQuestionID() {
@@ -137,5 +124,13 @@ public class Question {
 
     public void setMusic(Music music) {
         this.music = music;
+    }
+
+    public Quiz getQuiz() {
+        return quiz;
+    }
+
+    public void setQuiz(Quiz quiz) {
+        this.quiz = quiz;
     }
 }

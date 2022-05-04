@@ -2,11 +2,6 @@ package dtos;
 
 import entities.Music;
 import entities.Question;
-import entities.Quiz;
-
-import javax.persistence.*;
-import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Size;
 
 public class QuestionDTO {
 
@@ -18,7 +13,7 @@ public class QuestionDTO {
     private String choice4;
     private String answer;
     private Music music;
-    private Quiz quiz;
+    private QuizDTO quiz;
 
     public QuestionDTO() {
     }
@@ -32,7 +27,7 @@ public class QuestionDTO {
         this.choice4 = question.getChoice4();
         this.answer = question.getAnswer();
         this.music = question.getMusic();
-        this.quiz = question.getq;
+        this.quiz = new QuizDTO(question.getQuiz());
     }
 
 
@@ -100,11 +95,11 @@ public class QuestionDTO {
         this.music = music;
     }
 
-    public Quiz getQuiz() {
+    public QuizDTO getQuiz() {
         return quiz;
     }
 
-    public void setQuiz(Quiz quiz) {
+    public void setQuiz(QuizDTO quiz) {
         this.quiz = quiz;
     }
 }
