@@ -2,6 +2,7 @@ package rest;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import dtos.NewQuizDTO;
 import facades.QuizFacade;
 import utils.EMF_Creator;
 
@@ -30,11 +31,9 @@ public class SpotQuizResource {
    @Produces(MediaType.APPLICATION_JSON)
    @Consumes(MediaType.APPLICATION_JSON)
    public Response createQuiz(String jsonContext) {
-      EntityManager em = EMF.createEntityManager();
 
-      // todo: Before uncommenting, create the User_NewQuizDTO. The class should contain a User and a Quiz property.
-      // todo: From there extract a UserDTO and QuizDTO and call createQuiz from the facade
-//      User_NewQuizDTO user_newQuizDTO = GSON.fromJson(jsonContext, User_NewQuizDTO.class);
+      NewQuizDTO newQuizDTO = GSON.fromJson(jsonContext, NewQuizDTO.class);
+      quizFacade.createQuiz(newQuizDTO);
 
       return Response
              .ok("SUCCESS")

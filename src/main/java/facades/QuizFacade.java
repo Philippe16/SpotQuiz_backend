@@ -1,9 +1,6 @@
 package facades;
 
-import dtos.MusicDTO;
-import dtos.QuestionDTO;
-import dtos.QuizDTO;
-import dtos.UserDTO;
+import dtos.*;
 import entities.Music;
 import entities.Question;
 import entities.Quiz;
@@ -32,24 +29,23 @@ public class QuizFacade {
         return emf.createEntityManager();
     }
 
-    public void createQuiz(UserDTO userDTO, QuizDTO quizDTO){
+    public void createQuiz(NewQuizDTO newQuizDTO){
         EntityManager em = getEntityManager();
 
         try {
             // Find the user who created the quiz
-            User user = em.find(User.class, userDTO.getUserID());
+            User user = em.find(User.class, newQuizDTO.getUserID());
 
             // Make DTO's to entities
-            Quiz quiz = new Quiz(quizDTO.getName());
+            Quiz quiz = new Quiz(newQuizDTO.getQuizTitle());
             ArrayList<Music> musicUsedInQuiz = new ArrayList<>();
-            ArrayList<Question> questionsUsedInQuiz = new ArrayList<>();
 
-            for (QuestionDTO questionDTO : quizDTO.getQuestions()) {
-                MusicDTO musicDTO = questionDTO.getMusic();
+            for (NewQuestionDTO newQuestionDTO : newQuizDTO.getQuestions()) {
+                MusicDTO musicDTO = newQuestionDTO.getMusic();
                 Music music = new Music(musicDTO.getSongID(), musicDTO.getTitle(), musicDTO.getArtist(),
                        musicDTO.getCoverImgLink(), musicDTO.getSongSnippetLink());
 
-                if(questionsUsedInQuiz.size() > 0){
+                if(musicUsedInQuiz.size() > 0){
                     boolean alreadyInList = false;
 
                     for(Music musicFromList : musicUsedInQuiz){
@@ -66,19 +62,17 @@ public class QuizFacade {
                     musicUsedInQuiz.add(music);
                 }
 
-                Question question = new Question(questionDTO.getQuestion(), questionDTO.getChoice1(), questionDTO.getChoice2(),
-                       questionDTO.getChoice3(), questionDTO
-                       .getChoice4(), questionDTO.getAnswer(), music, quiz);
+                Question question = new Question(newQuestionDTO.getQuestion(), newQuestionDTO.getChoice1(), newQuestionDTO.getChoice2(),
+                       newQuestionDTO.getChoice3(), newQuestionDTO
+                       .getChoice4(), newQuestionDTO.getAnswer(), music);
 
                 quiz.addQuestion(question);
-                questionsUsedInQuiz.add(question);
             }
 
             // Add the new quiz to the user's list of created quizzes
             user.addQuizToCreatedQuizzes(quiz);
 
             em.getTransaction().begin();
-//                Quiz quiz = new Quiz(quizDTO.getName());
                 em.merge(user);
                 em.persist(quiz);
 
@@ -90,7 +84,7 @@ public class QuizFacade {
                     }
                 }
 
-                for(Question question : questionsUsedInQuiz){
+                for(Question question : quiz.getQuestions()){
                     em.persist(question);
                 }
 

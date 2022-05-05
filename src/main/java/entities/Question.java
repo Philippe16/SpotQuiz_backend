@@ -48,7 +48,7 @@ public class Question {
     }
 
     public Question(String question, String choice1, String choice2, String choice3, String choice4,
-                    String answer, Music music, Quiz quiz) {
+                    String answer, Music music) {
         this.question = question;
         this.choice1 = choice1;
         this.choice2 = choice2;
@@ -56,7 +56,6 @@ public class Question {
         this.choice4 = choice4;
         this.answer = answer;
         this.music = music;
-        this.quiz = quiz;
     }
 
     public int getQuestionID() {
@@ -130,7 +129,5 @@ public class Question {
     public void setQuiz(Quiz quiz) {
         this.quiz = quiz;
     }
-
-
 
 }

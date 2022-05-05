@@ -1,12 +1,12 @@
 package entities;
 
-import dtos.QuizDTO;
-import dtos.UserDTO;
+import dtos.*;
 import facades.QuizFacade;
 import utils.EMF_Creator;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
+import java.util.ArrayList;
 
 public class Test {
 
@@ -25,34 +25,38 @@ public class Test {
 //            em.persist(user);
 //        em.getTransaction().commit();
 
-//        Quiz quiz = new Quiz("First quiz");
-//        Music music = new Music("songID_123", "Girl Of My Dreams", "Juice WRLD",
-//               "link_img", "link_song");
-//
-//        Question question1 = new Question("Who is singing this song?", "Juice WRLD", "Machine Gun Kelly",
-//               "Blackbear", "will.i.am", "Juice WRLD", music, quiz);
-//        Question question2 = new Question("Question2", "A", "B", "C", "D", "D", music, quiz);
-//        Question question3 = new Question("Question3", "A", "B", "C", "D", "A", music, quiz);
-//        Question question4 = new Question("Question4", "A", "B", "C", "D", "B", music, quiz);
-//        Question question5 = new Question("Question5", "A", "B", "C", "D", "A", music, quiz);
-//
-//        quiz.addQuestion(question1);
-//        quiz.addQuestion(question2);
-//        quiz.addQuestion(question3);
-//        quiz.addQuestion(question4);
-//        quiz.addQuestion(question5);
-//
-//        try{
-//            User user = em.find(User.class, 1);
-//            UserDTO userDTO = new UserDTO(user);
-//
-//            QuizDTO quizDTO = new QuizDTO(quiz);
-//
-//            quizFacade.createQuiz(userDTO, quizDTO);
-//
-//        }finally{
-//            em.close();
-//        }
+        Music music = new Music("songID_1234", "Bois Lie", "Avril Lavigne",
+               "link_img", "link_song");
+        MusicDTO musicDTO = new MusicDTO(music);
+
+        ArrayList<NewQuestionDTO> questions = new ArrayList<>();
+
+        NewQuestionDTO question1 = new NewQuestionDTO("Who is singing this song?", "Hayley Williams",
+               "Avril Lavigne", "Taylor Swift", "Gayle", "Avril Lavigne", musicDTO);
+        questions.add(question1);
+
+        NewQuestionDTO question2 = new NewQuestionDTO("Question2", "A", "B", "C",
+               "D", "D", musicDTO);
+        questions.add(question2);
+
+        NewQuestionDTO question3 = new NewQuestionDTO("Question3", "A", "B", "C",
+               "D", "A", musicDTO);
+        questions.add(question3);
+
+        NewQuestionDTO question4 = new NewQuestionDTO("Question4", "A", "B", "C",
+               "D", "B", musicDTO);
+        questions.add(question4);
+
+        NewQuestionDTO question5 = new NewQuestionDTO("Question5", "A", "B", "C",
+               "D", "A", musicDTO);
+        questions.add(question5);
+
+        try{
+            NewQuizDTO newQuizDTO = new NewQuizDTO(1, "Second quiz", questions);
+            quizFacade.createQuiz(newQuizDTO);
+        }finally{
+            em.close();
+        }
     }
 }
 

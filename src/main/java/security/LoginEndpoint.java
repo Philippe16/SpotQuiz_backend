@@ -48,10 +48,10 @@ public class LoginEndpoint {
         } catch (Exception e) {
            throw new API_Exception("Malformed JSON Suplied",400,e);
         }
-            // import og vi skal have en metode kaldet getRoleAsStrings
+
         try {
             User user = USER_FACADE.getVeryfiedUser(username, password);
-            String token = createToken(username, user.getRoleAsString()); // Hvad er dets fejl? Den vil have List, vi giver den string
+            String token = createToken(username, user.getRoleAsString(), user.getUserID());
             JsonObject responseJson = new JsonObject();
             responseJson.addProperty("username", username);
             responseJson.addProperty("token", token);
@@ -66,7 +66,7 @@ public class LoginEndpoint {
         throw new AuthenticationException("Invalid username or password! Please try again");
     }
 
-    private String createToken(String userName, String role) throws JOSEException {
+    private String createToken(String userName, String role, int userID) throws JOSEException {
         String issuer = "semesterstartcode-dat3";
 
         JWSSigner signer = new MACSigner(SharedSecret.getSharedKey());
@@ -75,6 +75,7 @@ public class LoginEndpoint {
                 .subject(userName)
                 .claim("username", userName)
                 .claim("role", role)
+                .claim("userID", userID) // Delete if not working
                 .claim("issuer", issuer)
                 .issueTime(date)
                 .expirationTime(new Date(date.getTime() + TOKEN_EXPIRE_TIME))
