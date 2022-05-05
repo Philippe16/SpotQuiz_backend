@@ -23,6 +23,7 @@ public class SpotQuizResource {
    @GET
    @Produces("text/plain")
    public String hello() {
+      System.out.println("Inside get");
       return "Hello, World!";
    }
 
@@ -31,12 +32,14 @@ public class SpotQuizResource {
    @Produces(MediaType.APPLICATION_JSON)
    @Consumes(MediaType.APPLICATION_JSON)
    public Response createQuiz(String jsonContext) {
+      System.out.println(jsonContext);
 
       NewQuizDTO newQuizDTO = GSON.fromJson(jsonContext, NewQuizDTO.class);
       quizFacade.createQuiz(newQuizDTO);
 
       return Response
              .ok("SUCCESS")
+             .entity("All good")
              .build();
    }
 }
