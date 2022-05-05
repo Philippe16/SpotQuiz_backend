@@ -32,14 +32,13 @@ public class SpotQuizResource {
    @Produces(MediaType.APPLICATION_JSON)
    @Consumes(MediaType.APPLICATION_JSON)
    public Response createQuiz(String jsonContext) {
-      System.out.println(jsonContext);
 
       NewQuizDTO newQuizDTO = GSON.fromJson(jsonContext, NewQuizDTO.class);
       quizFacade.createQuiz(newQuizDTO);
 
       return Response
              .ok("SUCCESS")
-             .entity("All good")
+             .entity("{\"msg\": \"All good\"}")
              .build();
    }
 }
