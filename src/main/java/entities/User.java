@@ -13,7 +13,7 @@ public class User {
 
     @Id
     @Basic(optional = false)
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "user_id", nullable = false, unique = true)
     private int userID;
 
@@ -137,8 +137,7 @@ public class User {
         return this.getRole().getRoleName();
     }
 
-
-    public void createQuiz(Quiz quiz){
+    public void addQuizToCreatedQuizzes(Quiz quiz){
         this.createdQuizzes.add(quiz);
     }
 

@@ -10,7 +10,8 @@ import java.util.List;
 public class QuizDTO {
     private int quizID;
     private String name;
-    @JsonManagedReference
+
+//    @JsonManagedReference
     private List<QuestionDTO> questions = new ArrayList<>();
 
     public QuizDTO() {

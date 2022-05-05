@@ -10,7 +10,7 @@ public class Quiz{
 
     @Id
     @Basic(optional = false)
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "quiz_id", nullable = false, unique = true)
     private int quizID;
 

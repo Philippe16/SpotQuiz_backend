@@ -12,8 +12,9 @@ public class QuestionDTO {
     private String choice4;
     private String answer;
     private MusicDTO music;
-    @JsonBackReference
-    private QuizDTO quiz;
+
+//    @JsonBackReference
+//    private QuizDTO quiz;
 
     public QuestionDTO() {
     }
@@ -27,7 +28,7 @@ public class QuestionDTO {
         this.choice4 = question.getChoice4();
         this.answer = question.getAnswer();
         this.music = new MusicDTO(question.getMusic());
-        this.quiz = new QuizDTO(question.getQuiz());
+//        this.quiz = new QuizDTO(question.getQuiz());
     }
 
 
@@ -95,11 +96,11 @@ public class QuestionDTO {
         this.music = music;
     }
 
-    public QuizDTO getQuiz() {
-        return quiz;
-    }
-
-    public void setQuiz(QuizDTO quiz) {
-        this.quiz = quiz;
-    }
+//    public QuizDTO getQuiz() {
+//        return quiz;
+//    }
+//
+//    public void setQuiz(QuizDTO quiz) {
+//        this.quiz = quiz;
+//    }
 }

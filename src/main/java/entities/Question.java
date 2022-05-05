@@ -1,7 +1,5 @@
 package entities;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
-
 import javax.persistence.*;
 
 @Entity
@@ -10,7 +8,7 @@ public class Question {
 
     @Id
     @Basic(optional = false)
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "question_id", nullable = false, unique = true)
     private int questionID;
 
