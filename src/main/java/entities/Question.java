@@ -29,10 +29,6 @@ public class Question {
     private String choice3;
 
     @Basic(optional = false)
-    @Column(name = "choice4", nullable = false)
-    private String choice4;
-
-    @Basic(optional = false)
     @Column(name = "correct_answer", nullable = false)
     private String answer;
 
@@ -47,13 +43,11 @@ public class Question {
     public Question() {
     }
 
-    public Question(String question, String choice1, String choice2, String choice3, String choice4,
-                    String answer, Music music) {
+    public Question(String question, String choice1, String choice2, String choice3, String answer, Music music) {
         this.question = question;
         this.choice1 = choice1;
         this.choice2 = choice2;
         this.choice3 = choice3;
-        this.choice4 = choice4;
         this.answer = answer;
         this.music = music;
     }
@@ -96,14 +90,6 @@ public class Question {
 
     public void setChoice3(String choice3) {
         this.choice3 = choice3;
-    }
-
-    public String getChoice4() {
-        return choice4;
-    }
-
-    public void setChoice4(String choice4) {
-        this.choice4 = choice4;
     }
 
     public String getAnswer() {

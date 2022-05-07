@@ -5,16 +5,14 @@ public class NewQuestionDTO {
    private String choice1;
    private String choice2;
    private String choice3;
-   private String choice4;
    private String answer;
    private MusicDTO music;
 
-   public NewQuestionDTO(String question, String choice1, String choice2, String choice3, String choice4, String answer, MusicDTO music) {
+   public NewQuestionDTO(String question, String choice1, String choice2, String choice3, String answer, MusicDTO music) {
       this.question = question;
       this.choice1 = choice1;
       this.choice2 = choice2;
       this.choice3 = choice3;
-      this.choice4 = choice4;
       this.answer = answer;
       this.music = music;
    }
@@ -49,14 +47,6 @@ public class NewQuestionDTO {
 
    public void setChoice3(String choice3) {
       this.choice3 = choice3;
-   }
-
-   public String getChoice4() {
-      return choice4;
-   }
-
-   public void setChoice4(String choice4) {
-      this.choice4 = choice4;
    }
 
    public String getAnswer() {

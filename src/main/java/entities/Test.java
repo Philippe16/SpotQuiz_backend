@@ -12,7 +12,6 @@ import java.util.ArrayList;
 
 public class Test {
 
-
     public static void main(String[] args) {
         EntityManagerFactory emf = EMF_Creator.createEntityManagerFactory();
         EntityManager em = emf.createEntityManager();
@@ -34,27 +33,27 @@ public class Test {
 //        ArrayList<NewQuestionDTO> questions = new ArrayList<>();
 //
 //        NewQuestionDTO question1 = new NewQuestionDTO("Who is singing this song?", "Hayley Williams",
-//               "Avril Lavigne", "Taylor Swift", "Gayle", "Avril Lavigne", musicDTO);
+//               "Gayle", "Taylor Swift", "Avril Lavigne",  musicDTO);
 //        questions.add(question1);
 //
 //        NewQuestionDTO question2 = new NewQuestionDTO("Question2", "A", "B", "C",
-//               "D", "D", musicDTO);
+//               "D", musicDTO);
 //        questions.add(question2);
 //
 //        NewQuestionDTO question3 = new NewQuestionDTO("Question3", "A", "B", "C",
-//               "D", "A", musicDTO);
+//               "D", musicDTO);
 //        questions.add(question3);
 //
 //        NewQuestionDTO question4 = new NewQuestionDTO("Question4", "A", "B", "C",
-//               "D", "B", musicDTO);
+//               "D", musicDTO);
 //        questions.add(question4);
 //
 //        NewQuestionDTO question5 = new NewQuestionDTO("Question5", "A", "B", "C",
-//               "D", "A", musicDTO);
+//               "D", musicDTO);
 //        questions.add(question5);
 //
 //
-//        NewQuizDTO newQuizDTO = new NewQuizDTO(1, "Second quiz", questions);
+//        NewQuizDTO newQuizDTO = new NewQuizDTO(1, "First quiz", questions);
 //        quizFacade.createQuiz(newQuizDTO);
     }
 }

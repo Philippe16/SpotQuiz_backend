@@ -3,20 +3,27 @@ package dtos;
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import entities.Question;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class QuestionDTO {
     private int questionID;
     private String question;
     private String choice1;
     private String choice2;
     private String choice3;
-    private String choice4;
     private String answer;
     private MusicDTO music;
+    private List<String> allChoices = new ArrayList<>();
 
 //    @JsonBackReference
 //    private QuizDTO quiz;
 
     public QuestionDTO() {
+        allChoices.add(choice1);
+        allChoices.add(choice2);
+        allChoices.add(choice3);
+        allChoices.add(answer);
     }
 
     public QuestionDTO(Question question) {
@@ -25,10 +32,13 @@ public class QuestionDTO {
         this.choice1 = question.getChoice1();
         this.choice2 = question.getChoice2();
         this.choice3 = question.getChoice3();
-        this.choice4 = question.getChoice4();
         this.answer = question.getAnswer();
         this.music = new MusicDTO(question.getMusic());
 //        this.quiz = new QuizDTO(question.getQuiz());
+        allChoices.add(choice1);
+        allChoices.add(choice2);
+        allChoices.add(choice3);
+        allChoices.add(answer);
     }
 
 
@@ -72,14 +82,6 @@ public class QuestionDTO {
         this.choice3 = choice3;
     }
 
-    public String getChoice4() {
-        return choice4;
-    }
-
-    public void setChoice4(String choice4) {
-        this.choice4 = choice4;
-    }
-
     public String getAnswer() {
         return answer;
     }
@@ -103,4 +105,12 @@ public class QuestionDTO {
 //    public void setQuiz(QuizDTO quiz) {
 //        this.quiz = quiz;
 //    }
+
+    public List<String> getAllChoices() {
+        return allChoices;
+    }
+
+    public void setAllChoices(List<String> allChoices) {
+        this.allChoices = allChoices;
+    }
 }

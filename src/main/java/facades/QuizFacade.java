@@ -65,8 +65,7 @@ public class QuizFacade {
                 }
 
                 Question question = new Question(newQuestionDTO.getQuestion(), newQuestionDTO.getChoice1(), newQuestionDTO.getChoice2(),
-                       newQuestionDTO.getChoice3(), newQuestionDTO
-                       .getChoice4(), newQuestionDTO.getAnswer(), music);
+                       newQuestionDTO.getChoice3(), newQuestionDTO.getAnswer(), music);
 
                 quiz.addQuestion(question);
             }
