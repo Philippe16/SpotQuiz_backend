@@ -75,7 +75,7 @@ public class LoginEndpoint {
                 .subject(userName)
                 .claim("username", userName)
                 .claim("role", role)
-                .claim("userID", userID) // Delete if not working
+                .claim("userID", userID)
                 .claim("issuer", issuer)
                 .issueTime(date)
                 .expirationTime(new Date(date.getTime() + TOKEN_EXPIRE_TIME))
@@ -83,6 +83,5 @@ public class LoginEndpoint {
         SignedJWT signedJWT = new SignedJWT(new JWSHeader(JWSAlgorithm.HS256), claimsSet);
         signedJWT.sign(signer);
         return signedJWT.serialize();
-
     }
 }

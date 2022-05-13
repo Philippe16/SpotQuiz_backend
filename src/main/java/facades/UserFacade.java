@@ -3,6 +3,9 @@ package facades;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 
+import dtos.NewUserDTO;
+import dtos.UserDTO;
+import entities.Role;
 import entities.User;
 import security.errorhandling.AuthenticationException;
 
@@ -36,11 +39,44 @@ public class UserFacade {
         try {
             user = em.find(User.class, username);
             if (user == null || !user.verifyPassword(password)) {
-                throw new AuthenticationException("Invalid user name or password");
+                throw new AuthenticationException("Invalid username or password");
             }
         } finally {
             em.close();
         }
         return user;
+    }
+
+    public UserDTO createAccount(NewUserDTO newUserDTO){
+        EntityManager em = emf.createEntityManager();
+        User user;
+        UserDTO userDTO = null;
+
+        try{
+            user = em.find(User.class, newUserDTO.getUsername());
+
+            if(user == null){
+                Role role = em.find(Role.class, "user");
+
+                if(role == null){
+                    Role userRole = new Role("user");
+                    em.persist(new Role(userRole.getRoleName()));
+                    em.flush();
+                    role = userRole;
+                }
+
+                user = new User(newUserDTO.getUsername(), newUserDTO.getEmail(), newUserDTO.getPassword(), role);
+
+                em.getTransaction().begin();
+                    em.persist(user);
+                em.getTransaction().commit();
+
+                userDTO = new UserDTO(em.find(User.class, newUserDTO.getUsername()));
+            }
+        }finally{
+            em.close();
+        }
+
+        return userDTO;
     }
 }

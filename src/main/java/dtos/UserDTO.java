@@ -1,10 +1,7 @@
 package dtos;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
-import com.fasterxml.jackson.annotation.JsonManagedReference;
 import entities.Music;
 import entities.Quiz;
-import entities.Role;
 import entities.User;
 
 import java.util.ArrayList;
@@ -15,8 +12,7 @@ public class UserDTO {
     private String username;
     private String email;
     private String password;
-    @JsonBackReference
-    private Role role;
+    private RoleDTO role;
     private List<QuizDTO> createdQuizzes = new ArrayList<>();
     private List<QuizDTO> playedQuizzes = new ArrayList<>();
     private List<MusicDTO> bookmarkedSongs = new ArrayList<>();
@@ -29,7 +25,7 @@ public class UserDTO {
         this.username = user.getUsername();
         this.email = user.getEmail();
         this.password = user.getPassword();
-        this.role = user.getRole();
+        this.role = new RoleDTO(user.getRole());
 
         for(Quiz quiz : user.getCreatedQuizzes()){
             createdQuizzes.add(new QuizDTO(quiz));
@@ -76,11 +72,11 @@ public class UserDTO {
         this.password = password;
     }
 
-    public Role getRole() {
+    public RoleDTO getRole() {
         return role;
     }
 
-    public void setRole(Role role) {
+    public void setRole(RoleDTO role) {
         this.role = role;
     }
 
