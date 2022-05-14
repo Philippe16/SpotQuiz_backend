@@ -13,13 +13,14 @@ public class User {
 
     @Id
     @Basic(optional = false)
-    @Column(name = "username", nullable = false)
-    private String username;
-
-    @Basic(optional = false)
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "user_id", nullable = false, unique = true)
     private int userID;
+
+    @Basic(optional = false)
+    @Column(name = "username", nullable = false)
+    private String username;
+
 
     @Basic(optional = false)
     @Column(name = "email", nullable = false)

@@ -24,7 +24,7 @@ public class SpotQuizResource {
    private static final QuizFacade quizFacade = QuizFacade.getQuizFacade(EMF);
    private static final UserFacade userFacade = UserFacade.getUserFacade(EMF);
 
-   @GET
+   @GET // Todo delete later
    @Produces("text/plain")
    public String hello() {
       return "Hello, World!";
@@ -38,7 +38,15 @@ public class SpotQuizResource {
 
       NewUserDTO newUserDTO = GSON.fromJson(jsonContext, NewUserDTO.class);
       UserDTO userDTO = userFacade.createAccount(newUserDTO);
-      userDTO.setPassword("");
+
+      if(userDTO != null){
+         userDTO.setPassword("");
+      }else{
+         return Response
+          .status(409)
+          .entity(GSON.toJson(new Exception("Email is already registered")))
+          .build();
+      }
 
       return Response
              .ok("SUCCESS")
