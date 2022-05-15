@@ -39,21 +39,21 @@ public class LoginEndpoint {
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
     public Response login(String jsonString) throws AuthenticationException, API_Exception {
-        String username;
+        String email;
         String password;
         try {
             JsonObject json = JsonParser.parseString(jsonString).getAsJsonObject();
-            username = json.get("username").getAsString();
+            email = json.get("email").getAsString();
             password = json.get("password").getAsString();
         } catch (Exception e) {
            throw new API_Exception("Malformed JSON Suplied",400,e);
         }
 
         try {
-            User user = USER_FACADE.getVeryfiedUser(username, password);
-            String token = createToken(username, user.getRoleAsString(), user.getUserID());
+            User user = USER_FACADE.getVeryfiedUser(email, password);
+            String token = createToken(user.getUsername(), user.getRoleAsString(), user.getUserID());
             JsonObject responseJson = new JsonObject();
-            responseJson.addProperty("username", username);
+            responseJson.addProperty("username", user.getUsername());
             responseJson.addProperty("token", token);
             return Response.ok(new Gson().toJson(responseJson)).build();
 

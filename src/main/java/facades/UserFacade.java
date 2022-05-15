@@ -34,15 +34,18 @@ public class UserFacade {
         return instance;
     }
 
-    public User getVeryfiedUser(String username, String password) throws AuthenticationException {
+    public User getVeryfiedUser(String email, String password) throws AuthenticationException {
         EntityManager em = emf.createEntityManager();
         User user;
 
         try {
-            user = em.find(User.class, username);
-            if (user == null || !user.verifyPassword(password)) {
-                throw new AuthenticationException("Invalid username or password");
+            user = getUserByEmail(em, email);
+
+            if (!user.verifyPassword(password)) {
+                throw new AuthenticationException("Invalid email or password");
             }
+        }catch(NoResultException ignored){
+            throw new AuthenticationException("Invalid email or password");
         } finally {
             em.close();
         }

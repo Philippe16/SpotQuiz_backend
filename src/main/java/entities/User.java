@@ -129,7 +129,6 @@ public class User {
         this.playedQuizzes = playedQuizzes;
     }
 
-
     public boolean verifyPassword(String plainPassword) {
         return (BCrypt.checkpw(plainPassword, password));
     }
