@@ -85,12 +85,11 @@ class QuizFacadeTest {
 
             List<NewQuestionDTO> questionDTOList = new ArrayList<>();
             NewQuizDTO quizDTO = new NewQuizDTO(userFromDB.getUserID(),"TestQuizTitle", questionDTOList);
-            Music music = new Music("1","TestTitle", "TestArtist", "TestCoverImg", "TestSnippet"); // Har skrevet lidt forneden
+            Music music = new Music("1","TestTitle", "TestArtist", "TestCoverImg", "TestSnippet");
             MusicDTO musicDTO = new MusicDTO(music);
             NewQuestionDTO question1 = new NewQuestionDTO("TestQuestion", "Answer1", "Answer2", "Answer3", "CorrectAnswer", musicDTO);
             NewQuestionDTO question2 = new NewQuestionDTO("TestQuestion", "Answer1", "Answer2", "Answer3", "CorrectAnswer", musicDTO);
             NewQuestionDTO question3 = new NewQuestionDTO("TestQuestion", "Answer1", "Answer2", "Answer3", "CorrectAnswer", musicDTO);
-
 
             questionDTOList.add(question1);
             questionDTOList.add(question2);

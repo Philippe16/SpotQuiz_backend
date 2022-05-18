@@ -31,7 +31,7 @@ public class QuizFacade {
         return emf.createEntityManager();
     }
 
-    public void createQuiz(NewQuizDTO newQuizDTO){
+    public boolean createQuiz(NewQuizDTO newQuizDTO){
         EntityManager em = getEntityManager();
 
         try {
@@ -90,6 +90,9 @@ public class QuizFacade {
                 }
 
             em.getTransaction().commit();
+            return true;
+        }catch(NullPointerException ex){
+            return false;
         } finally {
             em.close();
         }

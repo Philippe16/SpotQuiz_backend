@@ -34,22 +34,22 @@ public class SpotQuizResource {
    @Path("createAccount")
    @Produces(MediaType.APPLICATION_JSON)
    @Consumes(MediaType.APPLICATION_JSON)
-   public Response createAccount(String jsonContext){
+   public Response createAccount(String jsonContext) {
 
       NewUserDTO newUserDTO = GSON.fromJson(jsonContext, NewUserDTO.class);
       UserDTO userDTO = userFacade.createAccount(newUserDTO);
 
-      if(userDTO == null){
+      if (userDTO == null) {
          return Response
-          .status(409)
-          .entity(GSON.toJson(new Exception("Email is already registered")))
-          .build();
+                 .status(409)
+                 .entity(GSON.toJson(new Exception("Email is already registered")))
+                 .build();
       }
 
       return Response
-             .ok("SUCCESS")
-             .entity(GSON.toJson(userDTO))
-             .build();
+              .ok("SUCCESS")
+              .entity(GSON.toJson(userDTO))
+              .build();
    }
 
    @POST
@@ -59,11 +59,18 @@ public class SpotQuizResource {
    public Response createQuiz(String jsonContext) {
 
       NewQuizDTO newQuizDTO = GSON.fromJson(jsonContext, NewQuizDTO.class);
-      quizFacade.createQuiz(newQuizDTO);
+
+      if (!quizFacade.createQuiz(newQuizDTO)) {
+         return Response
+        .status(500)
+        .entity("{\"msg\": \"The quiz was not created\"}")
+        .build();
+      }
 
       return Response
-             .ok("SUCCESS")
-             .entity("{\"msg\": \"All good\"}")
-             .build();
+        .ok("SUCCESS")
+        .entity("{\"msg\": \"All good\"}")
+        .build();
    }
+
 }
