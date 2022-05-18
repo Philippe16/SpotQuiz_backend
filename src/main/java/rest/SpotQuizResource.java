@@ -39,9 +39,7 @@ public class SpotQuizResource {
       NewUserDTO newUserDTO = GSON.fromJson(jsonContext, NewUserDTO.class);
       UserDTO userDTO = userFacade.createAccount(newUserDTO);
 
-      if(userDTO != null){
-         userDTO.setPassword("");
-      }else{
+      if(userDTO == null){
          return Response
           .status(409)
           .entity(GSON.toJson(new Exception("Email is already registered")))

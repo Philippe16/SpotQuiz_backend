@@ -71,8 +71,4 @@ class QuizFacadeTest {
         assertEquals(1, quizzes.size());
     }
 
-    /*
-   
-    */
-
 }
