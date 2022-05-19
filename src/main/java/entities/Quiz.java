@@ -1,6 +1,7 @@
 package entities;
 
 import javax.persistence.*;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -18,14 +19,27 @@ public class Quiz{
     @Column(name = "title", nullable = false)
     private String name;
 
+    @Temporal(TemporalType.DATE)
+    @Column(name = "date_created", nullable = false)
+    private LocalDate dateCreated;
+
     @OneToMany(mappedBy="quiz")
     private List<Question> questions = new ArrayList<>();
 
     public Quiz() {
     }
 
-    public Quiz(String name) {
+    public Quiz(String name){
         this.name = name;
+        this.dateCreated = LocalDate.now();
+    }
+
+    public LocalDate getDateCreated() {
+        return dateCreated;
+    }
+
+    public void setDateCreated(LocalDate dateCreated) {
+        this.dateCreated = dateCreated;
     }
 
     public int getQuizID() {

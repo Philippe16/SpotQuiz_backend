@@ -202,10 +202,3 @@ class SpotQuizResourceTest {
     }
 
 }
-
- /*
-    Si :P
-    Goodie :D
-    Hmm, vi kan også prøve at lave en til createAcc, men ved ikke om vi kan nå det :O
-    Ooki. Men tænker at vi lige at push og merge inden :D
- */
