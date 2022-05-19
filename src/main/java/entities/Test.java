@@ -9,6 +9,7 @@ import utils.EMF_Creator;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
+import java.io.IOException;
 import java.util.ArrayList;
 
 public class Test {
@@ -16,8 +17,11 @@ public class Test {
     public static void main(String[] args) {
         SpotifyFacade spotifyFacade = new SpotifyFacade();
 
-        System.out.println(spotifyFacade.getBearerToken());
-        // Oooki, jamen så lad os teste og se hvor slemt det står til xD
+        try{
+            System.out.println(spotifyFacade.getBearerToken());
+        }catch(IOException ex){
+            System.out.println(ex.getMessage());
+        }
 
     }
 }
