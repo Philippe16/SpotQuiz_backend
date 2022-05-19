@@ -27,8 +27,6 @@ import org.glassfish.grizzly.http.server.HttpServer;
 import org.glassfish.jersey.grizzly2.httpserver.GrizzlyHttpServerFactory;
 import org.glassfish.jersey.server.ResourceConfig;
 
-// Si, den har brug for at blive pushet og commitet :D
-// 
 @Disabled
 class SpotQuizResourceTest {
 

@@ -23,7 +23,7 @@ public class SpotQuizResource {
    // Facades
    private static final QuizFacade quizFacade = QuizFacade.getQuizFacade(EMF);
    private static final UserFacade userFacade = UserFacade.getUserFacade(EMF);
-
+// Skriver i bunden xD
    @GET // Todo delete later
    @Produces("text/plain")
    public String hello() {
@@ -57,7 +57,6 @@ public class SpotQuizResource {
    @Produces(MediaType.APPLICATION_JSON)
    @Consumes(MediaType.APPLICATION_JSON)
    public Response createQuiz(String jsonContext) {
-
       NewQuizDTO newQuizDTO = GSON.fromJson(jsonContext, NewQuizDTO.class);
 
       if (!quizFacade.createQuiz(newQuizDTO)) {
@@ -72,5 +71,37 @@ public class SpotQuizResource {
         .entity("{\"msg\": \"All good\"}")
         .build();
    }
+
+
+   @GET
+   @Path("/musicSearch")
+   @Produces(MediaType.APPLICATION_JSON)
+   @Consumes(MediaType.APPLICATION_JSON)
+   public Response musicSearch() {
+
+
+      return Response
+        .ok("SUCCESS")
+        .entity("{\"msg\": \"All good\"}")
+        .build();
+   }
+
+   /*
+      Oki, i gamle opg.ér:
+      - Vi laver en facade klasse som håndterer den eksterne data (spotify)
+      - I den facade klasse har vi en metode som sender en request til spotify
+      - Vi ovenstående request får vi vores token
+      - Den kan vi så gemme i vores spotifyConnector klasse
+      - Mistede tråden...
+
+      - oki, men vi skal have min. to facade metoder
+      - En til at få vores token
+      - og en anden til at hente musik data på spotify
+
+      Så vi kan starte med at lave vores facade
+      Den kan hedde SpotifyFacade
+      O;
+
+   */
 
 }
