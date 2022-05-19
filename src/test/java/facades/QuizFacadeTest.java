@@ -20,7 +20,7 @@ import java.util.List;
 import static org.junit.jupiter.api.Assertions.*;
 
 
-@Disabled // Goodie. Så tænker jeg at vi lige kan teste med at pushe og merge til main
+@Disabled
 class QuizFacadeTest {
     private static EntityManagerFactory emf = EMF_Creator.createEntityManagerFactoryForTest();
     private static QuizFacade quizFacade = QuizFacade.getQuizFacade(emf);
